@@ -645,11 +645,15 @@
   async function loadProjects() {
     const container = document.getElementById('projects-container');
     try {
-      const res = await fetch('https://api.github.com/users/SubradeepM/repos?sort=updated&per_page=12');
-      if (!res.ok) throw new Error('API error');
-      const repos = await res.json();
-      const filtered = repos.filter(r => !r.fork && r.name !== 'SubradeepM');
-
+        const res = await fetch('https://api.github.com/users/SubradeepM/repos?sort=updated&per_page=12');
+        if (!res.ok) throw new Error('API error');
+        const repos = await res.json();
+        
+        // 👇 ADD THIS LINE - List repos to EXCLUDE
+        const excludeRepos = ['portfolio', 'Sevasetu'];
+        
+        // 👇 MODIFY THIS LINE - Add the exclusion check
+        const filtered = repos.filter(r => !r.fork && !excludeRepos.includes(r.name));
       if (filtered.length === 0) {
         container.innerHTML = `<div class="projects-loading">No public repositories found yet. <a href="https://github.com/SubradeepM" target="_blank" style="color:var(--accent)">Visit GitHub →</a></div>`;
         return;
