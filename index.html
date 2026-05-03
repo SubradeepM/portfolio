@@ -650,7 +650,7 @@
         const repos = await res.json();
         
         // 👇 ADD THIS LINE - List repos to EXCLUDE
-        const excludeRepos = ['portfolio', 'Sevasetu'];
+        const excludeRepos = ['portfolio', 'Sevasetu', 'Crop-Price-Prediction'];
         
         // 👇 MODIFY THIS LINE - Add the exclusion check
         const filtered = repos.filter(r => !r.fork && !excludeRepos.includes(r.name));
